@@ -4,3 +4,16 @@ GET {{Todo.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+GET {{Todo.Api_HostAddress}}/todo/
+Accept: application/json
+
+###
+POST {{Todo.Api_HostAddress}}/todo/
+Content-Type: application/json
+
+{
+  "title": "Finish .http file guide",
+  "description": "Write an example for dueDate format",
+  "dueDate": "2025-07-06T18:00:00Z",
+  "isCompleted": false
+}
