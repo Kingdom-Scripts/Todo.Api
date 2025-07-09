@@ -7,5 +7,6 @@
         public string? Description { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime? DateUpdated { get; set; }
+        public bool IsCompleted { get; internal set; }
     }
 }

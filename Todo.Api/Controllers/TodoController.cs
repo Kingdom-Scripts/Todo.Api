@@ -48,7 +48,7 @@ public class TodoController : ControllerBase
         return Ok(task);
     }
 
-    // PUT: /todo/{id}
+    // Update: /todo/{id}
     [HttpPut]
     [Route("{id:guid}")]
     public async Task<IActionResult> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
