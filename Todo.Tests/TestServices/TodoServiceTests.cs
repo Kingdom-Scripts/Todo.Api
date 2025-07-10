@@ -84,5 +84,33 @@ namespace Todo.Tests.TestServices
             Assert.IsType<List<TodoItem>>(result);
             Assert.NotNull(result);
         }
+
+        [Fact]
+        public async Task AddTodo_AddsTodoToDatabase()
+        {
+            //Arrange
+            var context = GetDbContext();
+            var service = new TodoService(context);
+            var newTodo = new TodoItem
+            {
+                Id = 5,
+                Title = "New Task",
+                Description = "This is a new task",
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+
+            var expectedCount = 5;
+            await SeedTestData(service);
+
+            //Act
+            await service.AddAsync(newTodo);
+            var result = await service.GetAllAsync();
+
+            //Assert
+            Assert.Contains(result, t => t.Id == newTodo.Id && t.Title == newTodo.Title);
+            Assert.Equal(1, result.Count(t => t.Id == newTodo.Id));
+            Assert.Equal(expectedCount, result.Count());
+        }
     }
 }
