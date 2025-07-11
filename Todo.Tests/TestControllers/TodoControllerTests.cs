@@ -53,5 +53,30 @@ namespace Todo.Tests.TestControllers
             Assert.Equal(expectedCount, todos.Count);
             Assert.NotNull(result);
         }
+
+        [Fact]
+        public async Task CreateTodo_ReturnsCreatedAtAction()
+        {
+            // Arrange
+            var serviceMock = new Mock<ITodoService>();
+            var controller = new TodoController(serviceMock.Object);
+            var newTodo = new TodoItem
+            {
+                Id = 2,
+                Title = "New Task",
+                Description = "Task Description",
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+
+            // Act
+            var result = await controller.Create(newTodo);
+
+
+            //Assert
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+            var createdTodo = Assert.IsType<TodoItem>(createdResult.Value);
+            Assert.Equal(newTodo.Id, createdTodo.Id);
+        }
     }
 }
